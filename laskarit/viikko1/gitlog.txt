@@ -1,0 +1,21 @@
+$ git log --stat | cat
+commit 6ae5a50688a598e31a2704084bd3333683cc85c0
+Author: Eeli Hakkarainen <eeli.hakkarainen@gmail.com>
+Date:   Tue Mar 17 12:23:18 2020 +0200
+
+    rename file2 -> file22
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 8e621e3b867d220f9c5418bb37064276c613d624
+Author: Eeli Hakkarainen <eeli.hakkarainen@gmail.com>
+Date:   Tue Mar 17 12:18:15 2020 +0200
+
+    added file1, file2, file3
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
