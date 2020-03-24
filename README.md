@@ -3,6 +3,7 @@
 Stonks is a Java application for tracking personal goals.
 
 [Software requirements specification](https://github.com/Eelinki/ot-harjoitustyo/blob/master/docs/software_requirements_specification.md)
+
 [Timesheet](https://github.com/Eelinki/ot-harjoitustyo/blob/master/docs/timesheet.md)
 
 For the course **Ohjelmistotekniikka** in **University of Helsinki**.
