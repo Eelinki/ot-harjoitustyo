@@ -2,3 +2,7 @@
 /laskarit/viikko2/Maksukortti/target/
 /laskarit/viikko2/Unicafe/target
 /laskarit/viikko2/Unicafe/nbproject/
+target/
+user.json
+nbproject/
+nbactions.xml
