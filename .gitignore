@@ -6,3 +6,5 @@ target/
 user.json
 nbproject/
 nbactions.xml
+.idea/
+Stonks.iml
