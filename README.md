@@ -7,11 +7,11 @@ For the course **Ohjelmistotekniikka** in **University of Helsinki**.
 
 ## Documentation
 
-[Software requirements specification](https://github.com/Eelinki/ot-harjoitustyo/blob/master/docs/software_requirements_specification.md)
+[Software requirements specification](https://github.com/Eelinki/ot-harjoitustyo/blob/master/documentation/software_requirements_specification.md)
 
-[Architecture](https://github.com/Eelinki/ot-harjoitustyo/blob/master/docs/architecture.md)
+[Architecture](https://github.com/Eelinki/ot-harjoitustyo/blob/master/documentation/architecture.md)
 
-[Timesheet](https://github.com/Eelinki/ot-harjoitustyo/blob/master/docs/timesheet.md)
+[Timesheet](https://github.com/Eelinki/ot-harjoitustyo/blob/master/documentation/timesheet.md)
 
 ## Running
 
