@@ -13,6 +13,10 @@ For the course **Ohjelmistotekniikka** in **University of Helsinki**.
 
 [Timesheet](https://github.com/Eelinki/ot-harjoitustyo/blob/master/documentation/timesheet.md)
 
+## Releases
+
+[Week 5 Release](https://github.com/Eelinki/ot-harjoitustyo/releases/tag/week5)
+
 ## Running
 
 ```
