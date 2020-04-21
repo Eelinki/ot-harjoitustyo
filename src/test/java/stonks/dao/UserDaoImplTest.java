@@ -1,6 +1,9 @@
 package stonks.dao;
 
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -9,8 +12,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
-import java.io.File;
-import java.io.FileWriter;
 import stonks.dao.UserDaoImpl;
 import stonks.domain.User;
 
@@ -25,16 +26,31 @@ public class UserDaoImplTest {
     public void setUp() throws IOException {
         userFile = folder.newFile("testuser.json");
         
-        try (FileWriter fileWriter = new FileWriter(userFile.getAbsolutePath())) {
-            fileWriter.write("{\"name\":\"testuser\"}");
-        }
-        
         userDao = new UserDaoImpl(userFile.getAbsolutePath());
     }
     
     @Test
-    public void userCanBeReadFromFile() {
+    public void userCanBeReadFromFile() throws IOException {
+        try (FileWriter fileWriter = new FileWriter(userFile.getAbsolutePath())) {
+            fileWriter.write("{\"name\":\"testuser\"}");
+        }
+
         User user = userDao.get();
         assertEquals("testuser", user.name);
+    }
+
+    @Test
+    public void insertUserWritesFileCorrectly() throws IOException {
+        User user = new User("test123");
+        userDao.insertUser(user);
+
+        String jsonFile = Files.readString(userFile.toPath(), StandardCharsets.UTF_8);
+
+        assertEquals("{\"name\":\"test123\"}", jsonFile);
+    }
+
+    @Test
+    public void getReturnsNullWhenUserFileDoesNotExist() {
+        assertNull(userDao.get());
     }
 }

@@ -7,7 +7,7 @@ The purpose of the application is to help the user to keep track of their goals.
 
 ## Planned features
 
- * Set a goal
+ * (Done) Set a goal
    * Monthly
    * Weekly
    * Daily

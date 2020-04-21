@@ -2,13 +2,17 @@ package stonks.domain;
 
 import stonks.dao.UserDaoImpl;
 
+import java.util.ArrayList;
+
 public class StonksService {
     private UserDaoImpl userDao;
     private User currentUser;
+    private ArrayList<Goal> goals;
     
     public StonksService(UserDaoImpl userDao) {
         this.userDao = userDao;
         this.currentUser = null;
+        this.goals = new ArrayList<>();
     }
     
     public User getCurrentUser() {
@@ -47,5 +51,17 @@ public class StonksService {
         }
         
         return false;
+    }
+
+    public Goal addGoal(String name, String unit, Routine routine, int goal) {
+        Goal newGoal = new Goal(name, unit, routine, goal);
+
+        goals.add(newGoal);
+
+        return newGoal;
+    }
+
+    public ArrayList<Goal> getGoals() {
+        return goals;
     }
 }

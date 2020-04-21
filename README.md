@@ -9,6 +9,8 @@ For the course **Ohjelmistotekniikka** in **University of Helsinki**.
 
 [Software requirements specification](https://github.com/Eelinki/ot-harjoitustyo/blob/master/docs/software_requirements_specification.md)
 
+[Architecture](https://github.com/Eelinki/ot-harjoitustyo/blob/master/docs/architecture.md)
+
 [Timesheet](https://github.com/Eelinki/ot-harjoitustyo/blob/master/docs/timesheet.md)
 
 ## Running

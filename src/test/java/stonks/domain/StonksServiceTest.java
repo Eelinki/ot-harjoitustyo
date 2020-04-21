@@ -24,10 +24,6 @@ public class StonksServiceTest {
     public void setUp() throws IOException {
         userFile = folder.newFile("testuser.json");
 
-        try (FileWriter fileWriter = new FileWriter(userFile.getAbsolutePath())) {
-            fileWriter.write("{\"name\":\"testuser\"}");
-        }
-
         userDao = new UserDaoImpl(userFile.getAbsolutePath());
 
         stonksService = new StonksService(userDao);
@@ -39,13 +35,21 @@ public class StonksServiceTest {
     }
 
     @Test
-    public void currentUserReturnsUserWhenUserHasLoggedIn() {
+    public void currentUserReturnsUserWhenUserHasLoggedIn() throws IOException {
+        try (FileWriter fileWriter = new FileWriter(userFile.getAbsolutePath())) {
+            fileWriter.write("{\"name\":\"testuser\"}");
+        }
+
         stonksService.loadUser();
         assertTrue(stonksService.getCurrentUser() instanceof User);
     }
 
     @Test
     public void loadUserReturnsFalseWhenNoUsersExist() throws IOException {
+        try (FileWriter fileWriter = new FileWriter(userFile.getAbsolutePath())) {
+            fileWriter.write("{\"name\":\"testuser\"}");
+        }
+
         try {
             userFile = folder.newFile("testuser.json");
             userFile.delete();
@@ -54,5 +58,17 @@ public class StonksServiceTest {
         } catch (IOException e) {
 
         }
+    }
+
+    @Test
+    public void createUserReturnsTrueWhenNoUsersExist() {
+        assertTrue(stonksService.createUser("newuser123"));
+    }
+
+    @Test
+    public void getGoalsReturnsCorrectAmountOfGoals() {
+        assertEquals(0, stonksService.getGoals().size());
+        stonksService.addGoal("drink beer", "cans", Routine.DAILY, 6);
+        assertEquals(1, stonksService.getGoals().size());
     }
 }
