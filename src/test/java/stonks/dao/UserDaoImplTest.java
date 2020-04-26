@@ -3,6 +3,7 @@ package stonks.dao;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -41,7 +42,7 @@ public class UserDaoImplTest {
 
     @Test
     public void insertUserWritesFileCorrectly() throws IOException {
-        User user = new User("test123");
+        User user = new User("test123", new ArrayList<>());
         userDao.insertUser(user);
 
         String jsonFile = Files.readString(userFile.toPath(), StandardCharsets.UTF_8);
