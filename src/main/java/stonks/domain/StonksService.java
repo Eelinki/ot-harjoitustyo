@@ -3,6 +3,7 @@ package stonks.domain;
 import stonks.dao.UserDaoImpl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StonksService {
     private UserDaoImpl userDao;
@@ -37,7 +38,7 @@ public class StonksService {
         if (loadedUser != null) {
             System.out.println("Found a saved user: " + loadedUser.name);
         } else {
-            User newUser = new User(name, new ArrayList<>());
+            User newUser = new User(name);
         
             if (userDao.insertUser(newUser)) {
                 System.out.println("Saved user successfully");
@@ -69,7 +70,7 @@ public class StonksService {
         return newGoal;
     }
 
-    public ArrayList<Goal> getGoals() {
-        return (ArrayList) currentUser.goals;
+    public List<Goal> getGoals() {
+        return currentUser.goals;
     }
 }

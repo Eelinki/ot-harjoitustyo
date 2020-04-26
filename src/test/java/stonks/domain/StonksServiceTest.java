@@ -67,6 +67,8 @@ public class StonksServiceTest {
 
     @Test
     public void getGoalsReturnsCorrectAmountOfGoals() {
+        stonksService.createUser("testuser");
+        stonksService.loadUser();
         assertEquals(0, stonksService.getGoals().size());
         stonksService.addGoal("drink beer", "cans", Routine.DAILY, 6);
         assertEquals(1, stonksService.getGoals().size());
