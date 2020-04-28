@@ -13,6 +13,8 @@ For the course **Ohjelmistotekniikka** in **University of Helsinki**.
 
 [Timesheet](https://github.com/Eelinki/ot-harjoitustyo/blob/master/documentation/timesheet.md)
 
+[User guide](https://github.com/Eelinki/ot-harjoitustyo/blob/master/documentation/user_guide.md)
+
 ## Releases
 
 [Week 5 Release](https://github.com/Eelinki/ot-harjoitustyo/releases/tag/week5)
@@ -34,7 +36,7 @@ mvn test
 To generate a code coverage report
 
 ```
-mvn jacoco:report
+mvn test jacoco:report
 ```
 
 The report can be found in `target/site/jacoco/index.html`
