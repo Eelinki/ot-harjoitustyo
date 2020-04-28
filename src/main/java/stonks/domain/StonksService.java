@@ -2,7 +2,6 @@ package stonks.domain;
 
 import stonks.dao.UserDao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class StonksService {

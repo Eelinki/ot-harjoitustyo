@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import stonks.domain.Goal;
+import stonks.domain.StonksService;
 
 public class GoalCell extends ListCell<Goal> {
     HBox hbox = new HBox();
@@ -16,7 +17,7 @@ public class GoalCell extends ListCell<Goal> {
     Pane pane = new Pane();
     Button button = new Button("+");
 
-    public GoalCell() {
+    public GoalCell(StonksService stonksService) {
         super();
         hbox.setSpacing(10);
         hbox.getChildren().addAll(goalName, goalRoutine, goalProgress, pane, button);
@@ -25,6 +26,7 @@ public class GoalCell extends ListCell<Goal> {
             Goal currentGoal = super.getItem();
             currentGoal.progress++;
             updateItem(currentGoal, false);
+            stonksService.updateUser();
         });
     }
 

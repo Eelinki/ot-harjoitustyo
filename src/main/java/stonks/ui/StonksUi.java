@@ -41,7 +41,7 @@ public class StonksUi extends Application {
             goalsListView.setCellFactory(new Callback<ListView<Goal>, ListCell<Goal>>() {
                 @Override
                 public ListCell<Goal> call(ListView<Goal> param) {
-                    return new GoalCell();
+                    return new GoalCell(stonksService);
                 }
             });
 
@@ -83,6 +83,8 @@ public class StonksUi extends Application {
                         Routine.valueOf(goalRoutine.getSelectionModel().getSelectedItem().toString().toUpperCase()),
                         Integer.parseInt(goalAmount.getText())
                 );
+
+                stonksService.addGoal(addedGoal);
 
                 goalsListView.getItems().add(addedGoal);
             });
