@@ -14,7 +14,7 @@ The purpose of the application is to help the user to keep track of their goals.
  * Multiple categories including
    * Financial goals
    * Health and fitness
- * (WIP) Save the user profile on the local device
+ * (Done) Save the user profile on the local device
  * Display your progress with charts and visualization
  * (WIP) Simple and clean GUI
 

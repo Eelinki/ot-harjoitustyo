@@ -33,11 +33,11 @@ public class UserDaoImplTest {
     @Test
     public void userCanBeReadFromFile() throws IOException {
         try (FileWriter fileWriter = new FileWriter(userFile.getAbsolutePath())) {
-            fileWriter.write("{\"name\":\"testuser\"}");
+            fileWriter.write("{\"name\":\"test123\",\"goals\":[]}");
         }
 
         User user = userDao.get();
-        assertEquals("testuser", user.name);
+        assertEquals("test123", user.name);
     }
 
     @Test
@@ -47,7 +47,7 @@ public class UserDaoImplTest {
 
         String jsonFile = Files.readString(userFile.toPath(), StandardCharsets.UTF_8);
 
-        assertEquals("{\"name\":\"test123\"}", jsonFile);
+        assertEquals("{\"name\":\"test123\",\"goals\":[]}", jsonFile);
     }
 
     @Test

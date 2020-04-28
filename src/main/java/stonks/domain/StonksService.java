@@ -1,15 +1,15 @@
 package stonks.domain;
 
-import stonks.dao.UserDaoImpl;
+import stonks.dao.UserDao;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StonksService {
-    private UserDaoImpl userDao;
+    private UserDao userDao;
     private User currentUser;
     
-    public StonksService(UserDaoImpl userDao) {
+    public StonksService(UserDao userDao) {
         this.userDao = userDao;
         this.currentUser = null;
     }
@@ -37,18 +37,20 @@ public class StonksService {
         
         if (loadedUser != null) {
             System.out.println("Found a saved user: " + loadedUser.name);
-        } else {
-            User newUser = new User(name);
-        
-            if (userDao.insertUser(newUser)) {
-                System.out.println("Saved user successfully");
-                
-                return true;
-            } else {
-                System.out.println("Error occurred while saving the user");
-            }
+
+            return false;
         }
-        
+
+        User newUser = new User(name);
+
+        if (userDao.insertUser(newUser)) {
+            System.out.println("Saved user successfully");
+
+            return true;
+        } else {
+            System.out.println("Error occurred while saving the user");
+        }
+
         return false;
     }
 
@@ -61,9 +63,7 @@ public class StonksService {
 
     }
 
-    public Goal addGoal(String name, String unit, Routine routine, int goal) {
-        Goal newGoal = new Goal(name, unit, routine, goal);
-
+    public Goal addGoal(Goal newGoal) {
         currentUser.goals.add(newGoal);
         updateUser();
 

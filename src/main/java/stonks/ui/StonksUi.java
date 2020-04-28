@@ -7,7 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -17,17 +16,15 @@ import stonks.domain.Goal;
 import stonks.domain.Routine;
 import stonks.domain.StonksService;
 
-import java.util.Optional;
-
 public class StonksUi extends Application {
-    private StonksService ss;
+    private StonksService stonksService;
     private Stage stage;
     
     @Override
     public void init() {
         UserDaoImpl userDao = new UserDaoImpl();
-        
-        this.ss = new StonksService(userDao);
+
+        this.stonksService = new StonksService(userDao);
     }
     
     @Override
@@ -36,25 +33,19 @@ public class StonksUi extends Application {
         
         BorderPane bp = new BorderPane();
         
-        if (ss.loadUser()) {
-            bp.setTop(new Label("Hey " + ss.getCurrentUser().name + "! How was your day?"));
+        if (stonksService.loadUser()) {
+            bp.setTop(new Label("Hey " + stonksService.getCurrentUser().name + "! How was your day?"));
 
-            ObservableList<Goal> alist = FXCollections.observableArrayList(
-                    new Goal("Work out", "times", Routine.WEEKLY, 3),
-                    new Goal("Drink beer", "bottles", Routine.DAILY, 6),
-                    new Goal("Play CS", "times", Routine.DAILY, 2)
-            );
-
-            ObservableList<Goal> list = FXCollections.observableArrayList(ss.getGoals());
-            ListView<Goal> lv = new ListView<>(list);
-            lv.setCellFactory(new Callback<ListView<Goal>, ListCell<Goal>>() {
+            ObservableList<Goal> list = FXCollections.observableArrayList(stonksService.getGoals());
+            ListView<Goal> goalsListView = new ListView<>(list);
+            goalsListView.setCellFactory(new Callback<ListView<Goal>, ListCell<Goal>>() {
                 @Override
                 public ListCell<Goal> call(ListView<Goal> param) {
                     return new GoalCell();
                 }
             });
 
-            bp.setCenter(lv);
+            bp.setCenter(goalsListView);
 
             Button addButton = new Button("Add a new goal");
 
@@ -73,7 +64,7 @@ public class StonksUi extends Application {
                 TextField goalUnit = new TextField();
                 goalUnit.setPromptText("unit (kilograms, times, bottles etc.)");
                 ComboBox goalRoutine = new ComboBox();
-                goalRoutine.getItems().setAll(Routine.values());
+                goalRoutine.getItems().setAll((Object[]) Routine.values());
                 goalRoutine.getSelectionModel().selectFirst();
 
                 vbox.getChildren().addAll(goalName, goalAmount, goalUnit, goalRoutine);
@@ -86,14 +77,14 @@ public class StonksUi extends Application {
 
                 dialog.showAndWait();
 
-                Goal addedGoal = ss.addGoal(
+                Goal addedGoal = new Goal(
                         goalName.getText(),
                         goalUnit.getText(),
                         Routine.valueOf(goalRoutine.getSelectionModel().getSelectedItem().toString().toUpperCase()),
                         Integer.parseInt(goalAmount.getText())
                 );
 
-                lv.getItems().add(addedGoal);
+                goalsListView.getItems().add(addedGoal);
             });
 
             bp.setBottom(addButton);
@@ -103,8 +94,8 @@ public class StonksUi extends Application {
             Button loginButton = new Button("Login");
 
             loginButton.setOnAction((event) -> {
-                if (ss.createUser(usernameField.getText())) {
-                    if (ss.loadUser()) {
+                if (stonksService.createUser(usernameField.getText())) {
+                    if (stonksService.loadUser()) {
                         start(primaryStage);
                     }
                 }
