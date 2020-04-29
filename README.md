@@ -17,6 +17,8 @@ For the course **Ohjelmistotekniikka** in **University of Helsinki**.
 
 ## Releases
 
+[Week 6 Release](https://github.com/Eelinki/ot-harjoitustyo/releases/tag/week6)
+
 [Week 5 Release](https://github.com/Eelinki/ot-harjoitustyo/releases/tag/week5)
 
 ## Running
