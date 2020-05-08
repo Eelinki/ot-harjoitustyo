@@ -8,4 +8,5 @@
 | 21.4. | 12 | it is now possible to add custom goals + more testing |
 | 26.4. | 4 | Saving the user profile now properly saves the goals + refactoring |
 | 28.4. | 2 | more unit testing + more refactoring |
-| total | 26 | |
+| 8.5. | 1 | refactoring |
+| total | 27 | |

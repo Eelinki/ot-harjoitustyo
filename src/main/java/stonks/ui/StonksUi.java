@@ -50,38 +50,15 @@ public class StonksUi extends Application {
             Button addButton = new Button("Add a new goal");
 
             addButton.setOnAction((event) -> {
-                Dialog dialog = new Dialog();
-                dialog.setTitle("Add a new goal");
-                dialog.setHeaderText("Add a new goal");
-
-                VBox vbox = new VBox();
-                vbox.setSpacing(10);
-
-                TextField goalName = new TextField();
-                goalName.setPromptText("Goal");
-                TextField goalAmount = new TextField();
-                goalAmount.setPromptText("amount");
-                TextField goalUnit = new TextField();
-                goalUnit.setPromptText("unit (kilograms, times, bottles etc.)");
-                ComboBox goalRoutine = new ComboBox();
-                goalRoutine.getItems().setAll((Object[]) Routine.values());
-                goalRoutine.getSelectionModel().selectFirst();
-
-                vbox.getChildren().addAll(goalName, goalAmount, goalUnit, goalRoutine);
-
-                dialog.getDialogPane().contentProperty().set(vbox);
-                dialog.getDialogPane().getButtonTypes().addAll(
-                        new ButtonType("Add", ButtonBar.ButtonData.OK_DONE),
-                        new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE)
-                );
+                AddGoal dialog = new AddGoal();
 
                 dialog.showAndWait();
 
                 Goal addedGoal = new Goal(
-                        goalName.getText(),
-                        goalUnit.getText(),
-                        Routine.valueOf(goalRoutine.getSelectionModel().getSelectedItem().toString().toUpperCase()),
-                        Integer.parseInt(goalAmount.getText())
+                        dialog.getGoal(),
+                        dialog.getUnit(),
+                        dialog.getRoutine(),
+                        dialog.getAmount()
                 );
 
                 stonksService.addGoal(addedGoal);
