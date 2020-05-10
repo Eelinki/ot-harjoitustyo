@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import stonks.dao.UserDao;
 import stonks.dao.UserDaoImpl;
 
 import java.io.File;
@@ -16,7 +17,7 @@ public class StonksServiceTest {
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
-    UserDaoImpl userDao;
+    UserDao userDao;
     File userFile;
     StonksService stonksService;
 
@@ -67,6 +68,14 @@ public class StonksServiceTest {
 
     @Test
     public void createUserReturnsFalseWhenUserExists() {
+        stonksService.createUser("anotheruser");
+        assertFalse(stonksService.createUser("newuser123"));
+    }
+
+    @Test
+    public void createUserReturnsFalseWhenDaoFails() throws IOException {
+        userDao = new UserDaoImpl("");
+        stonksService = new StonksService(userDao);
         stonksService.createUser("anotheruser");
         assertFalse(stonksService.createUser("newuser123"));
     }

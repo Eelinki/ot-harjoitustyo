@@ -3,24 +3,20 @@ package stonks.dao;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
-
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
-import stonks.dao.UserDaoImpl;
 import stonks.domain.User;
 
 public class UserDaoImplTest {
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
     
-    UserDaoImpl userDao;
+    UserDao userDao;
     File userFile;
     
     @Before
@@ -46,6 +42,17 @@ public class UserDaoImplTest {
         userDao.insertUser(user);
 
         String jsonFile = Files.readString(userFile.toPath(), StandardCharsets.UTF_8);
+
+        assertEquals("{\"name\":\"test123\",\"goals\":[]}", jsonFile);
+    }
+
+    @Test
+    public void defaultFileNameIsUsedWhenNoFileNameIsSupplied() throws IOException {
+        userDao = new UserDaoImpl();
+        User user = new User("test123", new ArrayList<>());
+        userDao.insertUser(user);
+
+        String jsonFile = Files.readString(Path.of("user.json"), StandardCharsets.UTF_8);
 
         assertEquals("{\"name\":\"test123\",\"goals\":[]}", jsonFile);
     }
