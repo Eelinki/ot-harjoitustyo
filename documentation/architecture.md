@@ -31,7 +31,8 @@ It provides the methods for the necessary use:
 
 ## Data storage
 
-The class UserDaoImpl is responsible for data storage.
+The class UserDaoImpl is responsible for data storage. It uses Jackson Databind library for JSON serialization and deserialization.
+Jackson Databind was the chosen library due to [superior performance](https://github.com/fabienrenaud/java-json-benchmark) and simple usage.
 
 ### File structure
 

@@ -17,8 +17,7 @@ public class UserDaoImpl implements UserDao {
     public UserDaoImpl() {
         this.file = "user.json";
     }
-    
-    @Override
+
     public User get() {
         try {
             User user = mapper.readValue(new File(file), User.class);
@@ -32,7 +31,6 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
-    @Override
     public boolean insertUser(User user) {
         try {
             mapper.writeValue(new File(file), user);

@@ -15,7 +15,11 @@ For the course **Ohjelmistotekniikka** in **University of Helsinki**.
 
 [User guide](https://github.com/Eelinki/ot-harjoitustyo/blob/master/documentation/user_guide.md)
 
+[Testing document](https://github.com/Eelinki/ot-harjoitustyo/blob/master/documentation/testing.md)
+
 ## Releases
+
+[Week 7 Release (final)](https://github.com/Eelinki/ot-harjoitustyo/releases/tag/week7)
 
 [Week 6 Release](https://github.com/Eelinki/ot-harjoitustyo/releases/tag/week6)
 

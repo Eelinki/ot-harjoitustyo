@@ -55,6 +55,7 @@
                 <configuration>
                     <excludes>
                         <exclude>stonks/ui/*</exclude>
+                        <exclude>stonks/Main.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

@@ -20,7 +20,7 @@ Enter your desired name and hit 'Login'. You will now see the main screen.
 
 You will now see the list of your goals. For the first time you use the application, this list will be empty.
 
-Each goal has a '+' button to increment your counter towards the goal.
+Each goal has a '+' button to increment your counter towards the goal and a '-' button to decrement.
 
 ### Adding goals
 
