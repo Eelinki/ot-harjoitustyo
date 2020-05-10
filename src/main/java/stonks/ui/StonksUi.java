@@ -13,6 +13,8 @@ import stonks.dao.UserDaoImpl;
 import stonks.domain.Goal;
 import stonks.domain.StonksService;
 
+import java.util.Optional;
+
 public class StonksUi extends Application {
     private StonksService stonksService;
     
@@ -42,22 +44,24 @@ public class StonksUi extends Application {
             addButton.setOnAction((event) -> {
                 AddGoal dialog = new AddGoal();
 
-                dialog.showAndWait();
+                Optional<ButtonType> result = dialog.showAndWait();
 
-                if(!validateGoal(dialog.getGoal(), dialog.getUnit(), dialog.getAmount())) {
-                    return;
+                if(result.isPresent() && result.get() == dialog.getDialogPane().getButtonTypes().get(0)) {
+                    if(!validateGoal(dialog.getGoal(), dialog.getUnit(), dialog.getAmount())) {
+                        return;
+                    }
+
+                    Goal addedGoal = new Goal(
+                            dialog.getGoal(),
+                            dialog.getUnit(),
+                            dialog.getRoutine(),
+                            Integer.parseInt(dialog.getAmount())
+                    );
+
+                    stonksService.addGoal(addedGoal);
+
+                    goalsListView.getItems().add(addedGoal);
                 }
-
-                Goal addedGoal = new Goal(
-                    dialog.getGoal(),
-                    dialog.getUnit(),
-                    dialog.getRoutine(),
-                    Integer.parseInt(dialog.getAmount())
-                );
-
-                stonksService.addGoal(addedGoal);
-
-                goalsListView.getItems().add(addedGoal);
             });
 
             removeButton.setOnAction((event) -> {
@@ -103,19 +107,30 @@ public class StonksUi extends Application {
     }
 
     public boolean validateGoal(String name, String unit, String amount) {
+        Alert validationAlert = new Alert(Alert.AlertType.ERROR);
+        validationAlert.setHeaderText("Input not valid");
+
         if(name.length() < 1 || name.length() > 100) {
+            validationAlert.setContentText("The length of the goal name must be between 1 and 100 characters");
+            validationAlert.showAndWait();
             return false;
         }
 
         if(unit.length() < 1 || unit.length() > 100) {
+            validationAlert.setContentText("The length of the unit must be between 1 and 100 characters");
+            validationAlert.showAndWait();
             return false;
         }
 
         try {
             if(Integer.parseInt(amount) < 1) {
+                validationAlert.setContentText("The goal amount must be larger than 0");
+                validationAlert.showAndWait();
                 return false;
             }
         } catch (NumberFormatException e) {
+            validationAlert.setContentText("The goal amount must be a numeric value larger than 0");
+            validationAlert.showAndWait();
             return false;
         }
 
