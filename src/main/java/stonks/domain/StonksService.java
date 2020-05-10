@@ -95,6 +95,13 @@ public class StonksService {
         return newGoal;
     }
 
+    public boolean removeGoal(Goal goal) {
+        currentUser.goals.remove(goal);
+        updateUser();
+
+        return true;
+    }
+
     public List<Goal> getGoals() {
         return currentUser.goals;
     }

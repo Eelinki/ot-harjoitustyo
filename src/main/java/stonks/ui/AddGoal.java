@@ -36,8 +36,8 @@ public final class AddGoal extends Dialog {
         return goalName.getText();
     }
 
-    public int getAmount() {
-        return Integer.parseInt(goalAmount.getText());
+    public String getAmount() {
+        return goalAmount.getText();
     }
 
     public String getUnit() {

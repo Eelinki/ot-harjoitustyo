@@ -11,12 +11,10 @@ The purpose of the application is to help the user to keep track of their goals.
    * Monthly
    * Weekly
    * Daily
- * Multiple categories including
-   * Financial goals
-   * Health and fitness
+ * (Done) Fully customizable goals
+ * (Done) Increment and decrement progress
  * (Done) Save the user profile on the local device
- * Display your progress with charts and visualization
- * (WIP) Simple and clean GUI
+ * (Done) Simple and clean GUI
 
 ## Ideas for the future
  * Mobile app

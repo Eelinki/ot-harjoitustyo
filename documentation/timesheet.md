@@ -9,4 +9,5 @@
 | 26.4. | 4 | Saving the user profile now properly saves the goals + refactoring |
 | 28.4. | 2 | more unit testing + more refactoring |
 | 8.5. | 1 | refactoring |
-| total | 27 | |
+| 10.5. | 2 | Added button to remove goals + validation |
+| total | 29 | |

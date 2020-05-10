@@ -15,14 +15,21 @@ public class GoalCell extends ListCell<Goal> {
     Label goalRoutine = new Label("routine");
     Label goalProgress = new Label("progress");
     Pane pane = new Pane();
-    Button button = new Button("+");
+    Button decrementButton = new Button("-");
+    Button incrementButton = new Button("+");
 
     public GoalCell(StonksService stonksService) {
         super();
         hbox.setSpacing(10);
-        hbox.getChildren().addAll(goalName, goalRoutine, goalProgress, pane, button);
+        hbox.getChildren().addAll(goalName, goalRoutine, goalProgress, pane, decrementButton, incrementButton);
         HBox.setHgrow(pane, Priority.ALWAYS);
-        button.setOnAction(event -> {
+        decrementButton.setOnAction(event -> {
+            Goal currentGoal = super.getItem();
+            currentGoal.progress--;
+            updateItem(currentGoal, false);
+            stonksService.updateUser();
+        });
+        incrementButton.setOnAction(event -> {
             Goal currentGoal = super.getItem();
             currentGoal.progress++;
             updateItem(currentGoal, false);

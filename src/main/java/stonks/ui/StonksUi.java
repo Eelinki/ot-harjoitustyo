@@ -6,19 +6,15 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.util.Callback;
 import stonks.dao.UserDaoImpl;
 import stonks.domain.Goal;
-import stonks.domain.Routine;
 import stonks.domain.StonksService;
 
 public class StonksUi extends Application {
     private StonksService stonksService;
-    private Stage stage;
     
     @Override
     public void init() {
@@ -29,8 +25,6 @@ public class StonksUi extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        stage = primaryStage;
-        
         BorderPane bp = new BorderPane();
         
         if (stonksService.loadUser()) {
@@ -38,27 +32,27 @@ public class StonksUi extends Application {
 
             ObservableList<Goal> list = FXCollections.observableArrayList(stonksService.getGoals());
             ListView<Goal> goalsListView = new ListView<>(list);
-            goalsListView.setCellFactory(new Callback<ListView<Goal>, ListCell<Goal>>() {
-                @Override
-                public ListCell<Goal> call(ListView<Goal> param) {
-                    return new GoalCell(stonksService);
-                }
-            });
+            goalsListView.setCellFactory(param -> new GoalCell(stonksService));
 
             bp.setCenter(goalsListView);
 
             Button addButton = new Button("Add a new goal");
+            Button removeButton = new Button("Remove selected goal");
 
             addButton.setOnAction((event) -> {
                 AddGoal dialog = new AddGoal();
 
                 dialog.showAndWait();
 
+                if(!validateGoal(dialog.getGoal(), dialog.getUnit(), dialog.getAmount())) {
+                    return;
+                }
+
                 Goal addedGoal = new Goal(
-                        dialog.getGoal(),
-                        dialog.getUnit(),
-                        dialog.getRoutine(),
-                        dialog.getAmount()
+                    dialog.getGoal(),
+                    dialog.getUnit(),
+                    dialog.getRoutine(),
+                    Integer.parseInt(dialog.getAmount())
                 );
 
                 stonksService.addGoal(addedGoal);
@@ -66,7 +60,20 @@ public class StonksUi extends Application {
                 goalsListView.getItems().add(addedGoal);
             });
 
-            bp.setBottom(addButton);
+            removeButton.setOnAction((event) -> {
+                if(goalsListView.getSelectionModel().getSelectedItem() == null) {
+                    return;
+                }
+
+                stonksService.removeGoal(goalsListView.getSelectionModel().getSelectedItem());
+
+                goalsListView.getItems().remove(goalsListView.getSelectionModel().getSelectedIndex());
+            });
+
+            HBox buttons = new HBox();
+            buttons.getChildren().addAll(addButton, removeButton);
+
+            bp.setBottom(buttons);
         } else {
             HBox loginGroup = new HBox();
             TextField usernameField = new TextField();
@@ -93,6 +100,26 @@ public class StonksUi extends Application {
         primaryStage.setMinHeight(480);
         primaryStage.setTitle("Stonks");
         primaryStage.show();
+    }
+
+    public boolean validateGoal(String name, String unit, String amount) {
+        if(name.length() < 1 || name.length() > 100) {
+            return false;
+        }
+
+        if(unit.length() < 1 || unit.length() > 100) {
+            return false;
+        }
+
+        try {
+            if(Integer.parseInt(amount) < 1) {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        return true;
     }
     
     public static void main(String[] args) {
