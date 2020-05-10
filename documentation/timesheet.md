@@ -11,4 +11,5 @@
 | 8.5. | 1 | refactoring |
 | 10.5. | 2 | added button to remove goals + validation |
 | 10.5. | 1 | implemented more testing |
-| total | 30 | |
+| 10.5. | 1 | improved documentation |
+| total | 31 | |
